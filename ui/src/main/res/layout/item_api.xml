@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="api"
+            type="com.lib.db.dto.Api" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{api.method}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@{api.methodColor}"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="POST" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewUrl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{api.url}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewMethod"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewMethod"
+                app:layout_constraintTop_toTopOf="@+id/textViewMethod"
+                tools:text="https://eps-net-uat.sadadbh.com/api/v2/mob-cus-sdd/payments/available" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@{String.valueOf(api.responseCode)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@{api.codeColor}"
+                android:textStyle="bold"
+                android:visibility="@{api.hasErrorCode() ? View.VISIBLE :View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textViewMethod"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMethod"
+                tools:text="200" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:src="@drawable/no_internet"
+                android:visibility="@{api.hasErrorCode() ? View.GONE :View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textViewMethod"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMethod" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewDateTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@{api.createdAt}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCode"
+                app:layout_constraintStart_toEndOf="@+id/textViewCode"
+                app:layout_constraintTop_toTopOf="@+id/textViewCode"
+                tools:text="MMM dd, yyyy hh:mm:ss a" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewTtl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{api.ttl}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewDateTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewDateTime"
+                app:layout_constraintTop_toTopOf="@+id/textViewDateTime"
+                tools:text="200 ms" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
